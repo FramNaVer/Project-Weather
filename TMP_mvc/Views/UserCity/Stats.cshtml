@@ -1,0 +1,105 @@
+﻿@model IEnumerable<TMP_mvc.ViewModels.CityStatsViewModel>
+@{
+    ViewData["Title"] = "สถิติจำนวนผู้ติดตามเมือง";
+    var labels = Model.Select(c => c.CityName).ToArray();
+    var data = Model.Select(c => c.FollowerCount).ToArray();
+}
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="container mt-4">
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h4 class="card-title mb-4">@Localizer["Title"]</h4>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info text-center">@Localizer["No users are following any cities yet"]</div>
+            }
+            else
+            {
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>@Localizer["TableHeaderCity"]</th>
+                            <th>@Localizer["TableHeaderFollowers"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.CityName</td>
+                                <td>@item.FollowerCount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <!-- กราฟ -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="mb-3">@Localizer["ChartTitleCompare"]</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="barChart" width="300" height="200"></canvas>
+                </div>
+                <div class="col-md-5">
+                    <canvas id="doughnutChart" width="300" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const labels = @Html.Raw(Json.Serialize(labels));
+        const data = @Html.Raw(Json.Serialize(data));
+
+        new Chart(document.getElementById('barChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '@Localizer["ChartBarLabel"]',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('doughnutChart').getContext('2d'), {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '@Localizer["ChartBarLabel"]',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)'
+                    ],
+                    borderWidth: 1
+                }]
+            }
+        });
+    </script>
+}

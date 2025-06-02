@@ -1,0 +1,70 @@
+﻿
+body {
+    font-family: 'Poppins', 'Kanit', sans-serif;
+}
+
+.title-head {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+    color: #F7AD45;
+}
+
+.main-content {
+ /* ขยับขวาหลังจากมี sidebar */
+    padding: 20px;
+}
+
+
+.sidebar {
+    position: fixed;
+    top: 56px; /* ความสูงของ navbar */
+    left: 0;
+    width: 260px;
+    height: calc(100vh - 56px);
+    background-color: #222831;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar p{
+    color:#fff;
+}
+
+
+.sidebar img {
+    width: 40px;
+    height: 40px;
+}
+
+.sidebar a {
+    display: block;
+    margin: 25px 5px;
+    color: #948979;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.sidebar hr {
+    border: none;
+    height: 1px;
+    background-color: #fff;
+    margin: 8px 0;
+}
+
+.sidebar a:hover {
+    background-color: #393E46;
+    color: #F7AD45;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0px rgba(0,0,0,0.3);
+    padding: 5px;
+    font-weight:bold;
+}
+
+.top-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050;
+}
+

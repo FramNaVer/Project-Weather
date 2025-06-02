@@ -1,0 +1,118 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="~/css/AirQuality.css" asp-append-version="true" />
+
+
+
+
+
+<div class="container">
+    <div id="map" style="height: 400px;" class="my-4 rounded shadow"></div>
+    <form id="cityForm" class="d-flex mb-3">
+        <input type="text" id="cityInput" class="form-control me-2" placeholder=@Localizer["Placeholder-example"] required />
+        <button type="submit" class="btn btn-primary">@Localizer["Search"]</button>
+    </form>
+    <div class="text-center">
+        <h4 id="cityName"></h4>
+    </div>
+    <div id="data-panel" class="row mt-4" style="display: none;">
+        <div class="col-md-4 mb-3">
+            <div class="data-block pm25" style="color:#333">
+                <h5>PM 2.5</h5>
+                <p style="font-size:1.2rem" id="pm25">--</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="data-block pm10" style="color:#333">
+                <h5>PM 10</h5>
+                <p style="font-size:1.2rem" id="pm10">--</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="data-block aqi" style="color:#333">
+                <h5>AQI</h5>
+                <p style="font-size:1.2rem" id="aqi">--</p>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="data-block co" style="color:#333">
+                <h5>@Localizer["CO"]</h5>
+                <p style="font-size:1.2rem" id="co">--</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="data-block no2" style="color:#333">
+                <h5>@Localizer["NO2"]</h5>
+                <p style="font-size:1.2rem" id="no2">--</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="data-block o3" style="color:#333">
+                <h5>@Localizer["O3"]</h5>
+                <p style="font-size:1.2rem" id="o3">--</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var map = L.map('map').setView([13.75, 100.5], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    let marker = null;
+
+    document.getElementById("cityForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const city = document.getElementById("cityInput").value;
+
+        fetch(`/AirQuality/GetAirQualityByCity?city=${encodeURIComponent(city)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (!data || Object.keys(data).length === 0) {
+                    alert("❌ No information found for this city.");
+                    return;
+                }
+
+
+                map.setView([data.lat, data.lon], 10);
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+                marker = L.marker([data.lat, data.lon]).addTo(map).bindPopup(data.city, data.pm2_5).openPopup();
+
+                // ✅ แสดงข้อมูลมลพิษ
+                function displayValue(value, unit = '') {
+                    if (value === undefined || value === null || isNaN(value)) {
+                        return '<span class="text-muted">@Localizer["NoData"]</span>';
+                    }
+                    return `${value} ${unit}`;
+                }
+
+                document.getElementById("pm25").innerHTML = displayValue(data.pm2_5, 'µg/m³');
+                document.getElementById("pm10").innerHTML = displayValue(data.pm10, 'µg/m³');
+                document.getElementById("co").innerHTML = displayValue(data.co, 'µg/m³');
+                document.getElementById("no2").innerHTML = displayValue(data.no2, 'µg/m³');
+                document.getElementById("o3").innerHTML = displayValue(data.o3, 'µg/m³');
+                document.getElementById("aqi").innerHTML = displayValue(data.aqi, '(AQI)');
+                document.getElementById("cityName").innerText = `@Localizer["City"]: ${data.city}`;
+                document.getElementById("data-panel").style.display = "flex";
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred.");
+            });
+    });
+</script>
+
+
+
+
+

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+	<data name="PM25">
+		<value>PM 2.5</value>
+	</data>
+	<data name="PM10">
+		<value>PM 10</value>
+	</data>
+	<data name="AQI">
+		<value>AQI</value>
+	</data>
+	<data name="CO">
+		<value>CO</value>
+	</data>
+	<data name="NO2">
+		<value>NO₂</value>
+	</data>
+	<data name="O3">
+		<value>O₃</value>
+	</data>
+	<data name="City">
+		<value>City</value>
+	</data>
+	<data name="Search">
+		<value>Search</value>
+	</data>
+	<data name="NoData">
+		<value>No Data</value>
+	</data>
+	<data name="NoInfoFound">
+		<value>No information found for this city.</value>
+	</data>
+	<data name="ErrorOccurred">
+		<value>An error occurred.</value>
+	</data>
+	<data name="Placeholder-example">
+		<value>Cityname Eaxmple Chiang Mai.</value>
+	</data>
+</root>

@@ -1,0 +1,119 @@
+﻿@{
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+    var selectedEN = currentCulture == "en-US" ? "selected" : "";
+    var selectedTH = currentCulture == "th-TH" ? "selected" : "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Temperature</title>
+    @inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/TMP_mvc.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark top-navbar">
+        <div class="container-fluid">
+            <img src="~/Images/Weather.png" alt="logo" class="me-3" width="40px;" />
+            <a class="navbar-brand fw-bold" href="#">@Localizer["Temperature"]</a>
+            <div class="collapse navbar-collapse justify-content-center">
+                <ul class="navbar-nav">
+                    <li class="nav-item me-3"><a class="nav-link" asp-controller="Home" asp-action="About">@Localizer["About"]</a></li>
+                    <li class="nav-item me-3"><a class="nav-link" asp-controller="Home" asp-action="Contact">@Localizer["Contact"]</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Comment" asp-action="Index">@Localizer["Comment"]</a></li>
+                </ul>
+                <form asp-controller="Language" asp-action="SetLanguage" method="post" class="form-inline me-2">
+                    <select name="culture" onchange="this.form.submit()" class="form-select form-select-sm">
+                        @if (currentCulture == "en-US")
+                        {
+                            <text>
+                                <option value="en-US" selected>EN</option>
+                                <option value="th-TH">TH</option>
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                                <option value="en-US">EN</option>
+                                <option value="th-TH" selected>TH</option>
+                            </text>
+                        }
+                    </select>
+
+                    <input type="hidden" name="returnUrl" value="@Url.Action("Index", "WeatherConbind")" />
+
+
+                </form>
+
+
+            </div>
+
+            <div class="d-flex align-items-center ms-auto me-3 gap-3">
+                <span class="fw-semibold text-white">@User.Identity.Name</span>
+                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-outline-light btn-sm d-flex align-items-center gap-2 p-2" title="Logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </nav>
+    <div class="sidebar">
+        <p class="mt-2 fw-bold">@Localizer["LeafletMap"]</p><hr />
+        <a asp-controller="WeatherConbind" asp-action="Index">@Localizer["CombindWeather"]</a>
+        <a asp-controller="WeatherForecast" asp-action="Index">@Localizer["ForecastWeather"]</a>
+        <p class="mt-4 fw-bold">@Localizer["Interest"]</p><hr />
+        <a asp-controller="UserCity" asp-action="Index">@Localizer["InterestCity"]</a>
+        <a asp-controller="UserCity" asp-action="Stats">@Localizer["Stats"]</a>
+        <p class="mt-4 fw-bold">@Localizer["SearchTemperature"]</p><hr />
+        <a asp-controller="Weather" asp-action="Index">@Localizer["CheckTemperature"]</a>
+        <a asp-controller="WeatherApi" asp-action="Index">@Localizer["WeatherCityAPI"]</a>
+        <p class="mt-4 fw-bold">@Localizer["AirQuality"]</p><hr />
+        <a asp-controller="AirQuality" asp-action="Index">@Localizer["AirQuality"]</a>
+    </div>
+
+    <!-- 🔶 MAIN CONTENT -->
+    <div class="main-content">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $("#cityInput").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/UserCity/SearchCities", 
+                        data: { term: request.term },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 2
+            });
+        });
+    </script>
+
+</body>
+</html>

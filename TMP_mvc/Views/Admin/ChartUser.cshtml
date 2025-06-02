@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "กราฟผู้ใช้งาน";
+}
+
+<div class="container mt-4 " style="width:800px; height:600px;">
+    <h2 class="mb-3">📊 Graph showing the number of users by role</h2>
+    <canvas id="roleChart" width="350" height="200" class="border rounded shadow-sm"></canvas>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("/Admin/GetUserChartData")
+                .then(res => res.json())
+                .then(data => {
+                    const ctx = document.getElementById("roleChart").getContext("2d");
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['User', 'Admin'],
+                            datasets: [{
+                                label: 'Number of users',
+                                data: [data.userCount, data.adminCount],
+                                backgroundColor: ['#3498db', '#2ecc71']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: { beginAtZero: true }
+                            }
+                        }
+                    });
+                })
+                .catch(err => console.error("เกิดข้อผิดพลาด:", err));
+        });
+    </script>
+}

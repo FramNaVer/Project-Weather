@@ -1,0 +1,35 @@
+﻿@model IEnumerable<TMP_mvc.Models.Comment>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var bangkokTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"); 
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title mb-4">💬 Comments</h4>
+
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Username</th>
+                        <th>Text</th>
+                        <th>Timezone (TH)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in Model)
+                    {
+                        var localTime = TimeZoneInfo.ConvertTimeFromUtc(c.CreatedAt, bangkokTimeZone);
+                        <tr>
+                            <td>@c.User.UserName</td>
+                            <td>@c.Message</td>
+                            <td>@localTime.ToString("dd/MM/yyyy HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

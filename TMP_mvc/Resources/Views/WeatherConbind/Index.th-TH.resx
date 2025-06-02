@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>พยากรณ์อากาศ</value>
+  </data>
+  <data name="SearchWeather" xml:space="preserve">
+    <value>ค้นหาสภาพอากาศ</value>
+  </data>
+  <data name="CityPlaceholder" xml:space="preserve">
+    <value>เช่น เชียงใหม่</value>
+  </data>
+  <data name="CityHint" xml:space="preserve">
+    <value>ตัวอย่างเช่น Bangkok</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>ค้นหา</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>กำลังโหลดข้อมูล...</value>
+  </data>
+  <data name="WeatherInfo" xml:space="preserve">
+    <value>ข้อมูลสภาพอากาศ</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>เมือง</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>อุณหภูมิ</value>
+  </data>
+  <data name="WeatherCondition" xml:space="preserve">
+    <value>สภาพอากาศ</value>
+  </data>
+  <data name="ForecastHeader" xml:space="preserve">
+    <value>พยากรณ์อากาศ</value>
+  </data>
+  <data name="ErrorLoading" xml:space="preserve">
+    <value>เกิดข้อผิดพลาด</value>
+  </data>
+	<data name="weather_clear sky">
+		<value>ท้องฟ้าแจ่มใส</value>
+	</data>
+	<data name="weather_rain">
+		<value>ฝนตก</value>
+	</data>
+	<data name="weather_overcast clouds">
+		<value>เมฆมาก</value>
+	</data>
+	<data name="weather_broken clouds">
+		<value>เมฆเป็นส่วนๆ</value>
+	</data>
+	<data name="weather_light rain">
+		<value>ฝนตกเล็กน้อย</value>
+	</data>
+	<data name="weather_moderate rain">
+		<value>ฝนตกปานกลาง</value>
+	</data>
+	<data name="weather_very heavy rain">
+		<value>ฝนตกหนักมาก</value>
+	</data>
+	<data name="weather_scattered_clouds">
+		<value>เมฆกระจัดกระจาย</value>
+	</data>
+</root>

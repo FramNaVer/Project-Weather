@@ -1,0 +1,109 @@
+﻿@using TMP_mvc.ViewModels
+@model WeatherViewModel
+
+@{
+    ViewBag.Title = "Weather City";
+}
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<div class="main-content" style="margin:0">
+    <div class="container py-4" style="max-width:1000px">
+        <!-- Title -->
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">@Localizer["SearchTitle"]</h2>
+            <hr class="mx-auto" style="width: 300px; height: 3px;" />
+        </div>
+
+        <div class="row justify-content-center g-4">
+            <!-- Input Section -->
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h4 class="card-title mb-4">@Localizer["SearchCardTitle"]</h4>
+
+                        <form method="post" asp-action="GetWeatherByCity">
+                            <div class="mb-3 text-start">
+                                <label for="cityInput" class="form-label fw-semibold">@Localizer["City"]</label>
+                                <input type="text" id="cityInput" name="city" class="form-control" placeholder="Example Bangkok" required />
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">@Localizer["SearchButton"]</button>
+                        </form>
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger mt-3 text-start">
+                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Section -->
+            <div class="col-md-6">
+                @if (Model != null && Model.Temp != 0)
+                {
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div id="loading" class="text-center mb-3" style="display:none;">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">@Localizer["Loading"]</span>
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-3">
+                                <img src="@Model.IconUrl" alt="weather icon" width="100" />
+                            </div>
+
+                            <h5 class="text-center fw-bold mb-3">@Localizer["WeatherCardTitle"]</h5>
+                            <div class="row mt-3">
+                                <div class="col-sm-6">
+                                    <p>
+                                        <i class="fa-solid fa-city me-2 text-info fa-lg"></i>
+                                        @Localizer["City"]: @Model.City
+                                    </p>
+                                    <p>
+                                        <i class="fa-solid fa-temperature-three-quarters me-2 text-warning fa-lg"></i>
+                                        @Localizer["Temperature"]: @Model.Temp°C
+                                    </p>
+                                    <p>
+                                        <i class="fa-solid fa-cloud me-2 text-primary fa-lg"></i>
+                                        @Localizer["Weather"]: @Localizer["weather_" + Model.Description?.ToLower().Replace(" ", "_")]
+
+                                    </p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p>
+                                        <i class="fa-solid fa-droplet me-2 text-primary fa-lg"></i>
+                                        @Localizer["Humidity"]: @Model.Humidity%
+                                    </p>
+                                    <p>
+                                        <i class="fa-solid fa-wind me-2 text-success fa-lg"></i>
+                                         @Localizer["WindSpeed"]: @Model.WindSpeed m/s
+                                    </p>
+                                    <p>
+                                        <i class="fa-solid fa-smog me-2 text-secondary fa-"></i>
+                                        @Localizer["Cloudiness"]: @Model.Cloudiness%
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <script>
+        document.querySelector('form').addEventListener('submit', function () {
+            document.getElementById('loading').style.display = 'block';
+        });
+            var map = L.map('map').setView([13.736717, 100.523186], 6);
+
+    </script>
+}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Temperature" xml:space="preserve">
+    <value>อุณหภูมิ</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>เกี่ยวกับ</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>ติดต่อ</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>ความคิดเห็น</value>
+  </data>
+  <data name="LeafletMap" xml:space="preserve">
+    <value>แผนที่ Leaflet</value>
+  </data>
+  <data name="CombindWeather" xml:space="preserve">
+    <value>สภาพอากาศรวม</value>
+  </data>
+  <data name="ForecastWeather" xml:space="preserve">
+    <value>พยากรณ์อากาศ</value>
+  </data>
+  <data name="Interest" xml:space="preserve">
+    <value>สิ่งที่สนใจ</value>
+  </data>
+  <data name="InterestCity" xml:space="preserve">
+    <value>เมืองที่สนใจ</value>
+  </data>
+  <data name="Stats" xml:space="preserve">
+    <value>สถิติ</value>
+  </data>
+  <data name="SearchTemperature" xml:space="preserve">
+    <value>ค้นหาอุณหภูมิ</value>
+  </data>
+  <data name="CheckTemperature" xml:space="preserve">
+    <value>ตรวจสอบอุณหภูมิ</value>
+  </data>
+  <data name="WeatherCityAPI" xml:space="preserve">
+    <value>API สภาพอากาศ</value>
+  </data>
+  <data name="AirQuality" xml:space="preserve">
+    <value>คุณภาพอากาศ</value>
+  </data>
+</root>

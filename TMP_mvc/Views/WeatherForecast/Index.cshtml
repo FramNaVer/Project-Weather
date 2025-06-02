@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Choose Position on map Weather";
+}
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<div class="container my-4">
+    <div id="map" style="height: 500px; width: 100%;" class="mb-4 shadow rounded"></div>
+
+    <div class="forecast-title mb-0">
+        <h4 class="text-center ">@Localizer["ForecastHeader"]</h4>
+    </div>
+    <div class="row justify-content-center p-4 rounded-3">
+
+        <!-- อากาศปัจจุบัน -->
+        <div class="col-md-4" style="margin-top:2rem;" id="currentWeather"></div>
+
+        <!-- พยากรณ์ -->
+        <div class="col-md-8" id="forecastWeather" style="display: flex; flex-wrap: wrap; gap: 1rem;"></div>
+
+    </div>
+</div>
+
+<script>
+
+    var map = L.map('map').setView([13.736717, 100.523186], 6);
+
+    const i18n = {
+    errorLoading: "@Localizer["ErrorLoading"]",
+    weather_clear_sky: "@Localizer["weather_clear sky"]",
+    weather_rain: "@Localizer["weather_rain"]",
+    weather_overcast_clouds: "@Localizer["weather_overcast clouds"]",
+    weather_broken_clouds: "@Localizer["weather_broken clouds"]",
+    weather_light_rain: "@Localizer["weather_light rain"]",
+    weather_moderate_rain: "@Localizer["weather_moderate rain"]",
+    weather_scattered_clouds: "@Localizer["weather_scattered clouds"]"
+};
+
+function translateWeather(desc) {
+    const key = "weather_" + desc.toLowerCase().replace(/\s+/g, "_");
+    return i18n[key] || desc;
+}
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    function getWeather(lat, lon) {
+        // ดึงอากาศปัจจุบัน
+        fetch(`/WeatherForecast/GetCurrent?lat=${lat}&lon=${lon}`)
+            .then(res => res.json())
+            .then(data => {
+                const div = document.getElementById('currentWeather');
+                div.innerHTML = `
+                    <div class="card shadow text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">@Localizer["CurrentWeatherCardTitle"]</h5>
+                            <p>@Localizer["CurrentWeatherCity"]: <strong>${data.city}</strong></p>
+                            <img src="${data.urlicon}" alt="icon" width="100" />
+                            <p class="mt-2">🌡️ @Localizer["CurrentWeatherTemperature"]: <strong>${data.temp}°C</strong></p>
+                            <p>☁️ @Localizer["CurrentWeatherDescription"]: <strong>${translateWeather(data.description)}</strong></p>
+                        </div>
+                    </div>
+                `;
+            });
+
+        // ดึงพยากรณ์อากาศ
+        fetch(`/WeatherForecast/GetForecast?lat=${lat}&lon=${lon}`)
+            .then(res => res.json())
+            .then(data => {
+                const div = document.getElementById('forecastWeather');
+                div.innerHTML = `
+                    <div class="col-12  text-center">
+                    </div>
+                `;
+                data.forecast.forEach(item => {
+                    div.innerHTML += `
+                        <div class="card p-2 shadow-sm text-center" style="width: 200px;">
+                            <h6>
+                                <strong>${item.datetime}</strong>
+                            </h6>
+                            <img src="${item.icon}" width="60" style="margin:0 auto" />
+                            <p class="mt-1">
+                                <i class="fa-solid fa-temperature-three-quarters me-2 text-warning fa-lg"></i>
+                                ${item.temp}°C
+                            </p>
+                            <p class="small">
+                                <i class="fa-solid fa-cloud me-2 text-primary fa-lg"></i>
+                                ${translateWeather(item.description)}
+                            </p>
+                        </div>
+                    `;
+                });
+            });
+    }
+
+    // แสดงเมื่อคลิกบนแผนที่
+    map.on('click', function (e) {
+        const { lat, lng } = e.latlng;
+        getWeather(lat, lng);
+    });
+
+    // เริ่มต้นด้วยตำแหน่งกรุงเทพ
+    getWeather(13.736717, 100.523186);
+</script>

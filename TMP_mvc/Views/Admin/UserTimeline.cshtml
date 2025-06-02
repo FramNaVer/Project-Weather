@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "📆 Timeline ผู้ใช้งาน";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h3 class="mb-3">📈 จำนวนผู้สมัครใช้งานรายเดือน</h3>
+<canvas id="timelineChart" width="800" height="400"></canvas>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        fetch("/Admin/GetUserTimelineData")
+            .then(res => res.json())
+            .then(data => {
+                const labels = data.map(d => d.month);
+                const counts = data.map(d => d.count);
+
+                const ctx = document.getElementById('timelineChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'จำนวนผู้ใช้งานที่สมัคร',
+                            data: counts,
+                            borderColor: '#2980b9',
+                            backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            });
+    </script>
+}

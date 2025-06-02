@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = Localizer["PageTitle"];
+}
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="~/css/WeatherConbind.css" asp-append-version="true" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<div class="container mt-4 p-3">
+    <div class="row">
+        <!-- ฝั่งซ้าย: กรอกข้อมูล -->
+        <div class="col-md-4 card py-4 px-3 shadow-sm" style="border-radius: 16px;">
+            <div class="text-center mb-2">
+                <img src="/images/cloudy.png" width="40" />
+            </div>
+            <h4 class="text-center mb-3">@Localizer["SearchWeather"]</h4>
+
+            <div class="input-group mb-2">
+                <span class="input-group-text bg-light">
+                    <i class="fa-solid fa-location-dot text-primary"></i>
+                </span>
+                <input type="text" id="cityInput" class="form-control" placeholder="@Localizer["CityPlaceholder"]" />
+            </div>
+            <small class="text-muted">@Localizer["CityHint"]</small>
+
+            <button class="btn btn-primary w-100 mt-3" onclick="GetCityWeather()">@Localizer["Search"]</button>
+
+            <div id="loading" class="text-center text-muted mt-3 d-none">
+                <div class="spinner-border text-primary" role="status"></div>
+                <div>@Localizer["Loading"]</div>
+            </div>
+
+            <!-- แสดงผลลัพธ์ -->
+            <div id="weatherInfo" class="mt-4 d-none">
+                <h5>🌤 @Localizer["WeatherInfo"]</h5>
+                <p><strong>@Localizer["City"]:</strong> <span id="wCity"></span></p>
+                <p><strong>@Localizer["Temperature"]:</strong> <span id="wTemp"></span>°C</p>
+                <p><strong>@Localizer["WeatherCondition"]:</strong> <span id="wDesc"></span></p>
+                <img id="wIcon" src="" width="60" />
+            </div>
+        </div>
+
+        <!-- ฝั่งขวา: แผนที่ -->
+        <div class="col-md-8">
+            <div id="map" style="height: 450px;"></div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5 mb-3 output-content">
+        <h4>📆 @Localizer["ForecastHeader"]</h4>
+
+        <div id="forecastInfo" class="mt-3 d-none" style="display:flex; justify-content:center;">
+            <div id="forecastList" class="col-md-11" style="display: flex; gap: 1rem;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const i18n = {
+        errorLoading: "@Localizer["ErrorLoading"]",
+        weather_clear_sky: "@Localizer["weather_clear sky"]",
+        weather_rain: "@Localizer["weather_rain"]",
+        weather_overcast_clouds: "@Localizer["weather_overcast clouds"]",
+        weather_broken_clouds: "@Localizer["weather_broken clouds"]",
+        weather_light_rain: "@Localizer["weather_light rain"]",
+        weather_moderate_rain: "@Localizer["weather_moderate rain"]",
+        weather_scattered_clouds: "@Localizer["weather_scattered clouds"]",
+
+        // เพิ่ม key ตามคำที่ OpenWeather API ส่งมา
+    };
+
+    function translateWeather(desc) {
+        const key = "weather_" + desc.toLowerCase().replace(/\s+/g, "_");
+        return i18n[key] || desc;
+    }
+
+    var map = L.map('map').setView([13.75, 100.52], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 10,
+    }).addTo(map);
+
+    window.onload = () => {
+        document.getElementById('cityInput').value = "Bangkok";
+        GetCityWeather();
+    }
+
+    var currentMarker = null;
+
+    function GetCityWeather() {
+        const city = document.getElementById("cityInput").value;
+
+        fetch(`/WeatherConbind/GetCityWeather?city=${encodeURIComponent(city)}`)
+            .then(async res => {
+                const text = await res.text();
+                if (!res.ok || !text) throw new Error("Invalid response or city name");
+                return JSON.parse(text);
+            })
+            .then(data => {
+                if (data.message) {
+                    alert("❌ " + data.message);
+                    return;
+                }
+
+                const current = data.current;
+                const forecast = data.forecast.forecast;
+
+                map.setView([current.lat, current.lon], 10);
+                if (currentMarker) map.removeLayer(currentMarker);
+                currentMarker = L.marker([current.lat, current.lon])
+                    .addTo(map)
+                    .bindPopup(`
+                        <div style="text-align:center; width: 100px">
+                            <h5 style="margin-bottom:0.5rem;">${current.city}</h5>
+                            <p style="margin:0;">
+                                <i class="fa-solid fa-temperature-three-quarters me-2 text-warning fa-lg"></i>
+                                <strong>${current.temp}°C</strong>
+                            </p>
+                            <p style="margin:0;">
+                                <i class="fa-solid fa-cloud me-2 text-primary fa-lg"></i>
+                                ${translateWeather(current.description)}
+                            </p>
+                            <img src="${current.iconUrl}" width="60" style="margin-top:0.5rem;" />
+                        </div>
+                    `).openPopup();
+
+                document.getElementById("weatherInfo").style.display = "block";
+                document.getElementById("wCity").innerText = current.city;
+                document.getElementById("wTemp").innerText = current.temp;
+                document.getElementById("wDesc").innerText = translateWeather(current.description);
+                document.getElementById("wIcon").src = current.iconUrl;
+
+                const ul = document.getElementById("forecastList");
+                ul.innerHTML = "";
+                forecast.forEach(item => {
+                    ul.innerHTML += `
+                        <div class="card p-3 text-center shadow-sm" style="width: 500px;">
+                            <h6 class="fw-bold mb-2">${item.datetime}</h6>
+                            <img src="${item.icon}" width="60" style="margin:0 auto" />
+                            <p class="mt-1">
+                                <i class="fa-solid fa-temperature-three-quarters me-2 text-warning fa-lg"></i>
+                                ${item.temp}°C
+                            </p>
+                            <p class="small">
+                                <i class="fa-solid fa-cloud me-2 text-primary fa-lg"></i>
+                                ${translateWeather(item.description)}
+                            </p>
+                        </div>`;
+                });
+                document.getElementById("forecastInfo").classList.remove("d-none");
+            })
+            .catch(err => {
+                alert(`${i18n.errorLoading}: ` + err.message);
+                console.error(err);
+            });
+    }
+</script>
+
+

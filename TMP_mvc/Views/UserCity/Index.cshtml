@@ -1,0 +1,60 @@
+﻿@model TMP_mvc.ViewModels.UserCityViewModel
+@{
+    ViewData["Title"] = "เมืองที่คุณสนใจ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title mb-4">@Localizer["Header"]</h4>
+
+            <!-- Dropdown เลือกเมือง -->
+            <form asp-action="Follow" method="post" class="row g-2 align-items-center mb-4">
+                <div class="col-md-7">
+                    <input type="text" name="cityName" id="cityInput" class="form-control" placeholder="@Localizer["InputPlaceholder"]" required />
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success w-100">
+                        <i class="fa fa-plus"></i> @Localizer["AddButton"]
+                    </button>
+                </div>
+            </form>
+
+
+            <!-- แสดงผล -->
+            @if (!Model.FollowedCities.Any())
+            {
+                <div class="alert alert-info text-center">You are not following any cities yet.</div>
+            }
+            else
+            {
+                <table class="table table-striped table-hover">
+                    <thead class="table-success">
+                        <tr>
+                            <th>@Localizer["TableCity"]</th>
+                            <th class="text-end">Manage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.FollowedCities)
+                        {
+                            <tr>
+                                <td>@item.City?.Name</td>
+                                <td class="text-end">
+                                    <form asp-action="Unfollow" method="post" asp-route-cityId="@item.CityId" class="d-inline">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                                            <i class="fa fa-trash"></i> @Localizer["UnfollowButton"]
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>

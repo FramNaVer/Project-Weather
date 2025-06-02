@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle">
+    <value>Choose Position on map Weather</value>
+  </data>
+  <data name="ForecastHeader">
+    <value>Weather Forecast</value>
+  </data>
+  <data name="CurrentWeatherCardTitle">
+    <value>Postition Select</value>
+  </data>
+  <data name="CurrentWeatherCity">
+    <value>City</value>
+  </data>
+  <data name="CurrentWeatherTemperature">
+    <value>Temperature</value>
+  </data>
+  <data name="CurrentWeatherDescription">
+    <value>Weather</value>
+  </data>
+  <data name="ErrorLoading">
+    <value>An error occurred</value>
+  </data>
+	<data name="weather_clear sky">
+		<value>Clear sky</value>
+	</data>
+	<data name="weather_rain">
+		<value>Rain</value>
+	</data>
+	<data name="weather_overcast clouds">
+		<value>Overcast clouds</value>
+	</data>
+	<data name="weather_broken clouds">
+		<value>Broken clouds</value>
+	</data>
+	<data name="weather_light rain">
+		<value>Light rain</value>
+	</data>
+	<data name="weather_moderate rain">
+		<value>Moderate rain</value>
+	</data>
+	<data name="weather_very heavy rain">
+		<value>Very heavy rain</value>
+	</data>
+	<data name="weather_scattered_clouds">
+		<value>Scattered clouds</value>
+	</data>
+</root>

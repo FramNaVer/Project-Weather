@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value></resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>พยากรณ์อากาศรายเมือง</value>
+  </data>
+  <data name="SearchTitle" xml:space="preserve">
+    <value>ค้นหาสภาพอากาศของเมือง</value>
+  </data>
+  <data name="SearchCardTitle" xml:space="preserve">
+    <value>🔍 ค้นหาสภาพอากาศ</value>
+  </data>
+  <data name="CityLabel" xml:space="preserve">
+    <value>ชื่อเมือง</value>
+  </data>
+  <data name="CityPlaceholder" xml:space="preserve">
+    <value>ตัวอย่าง กรุงเทพ</value>
+  </data>
+  <data name="SearchButton" xml:space="preserve">
+    <value>ค้นหา</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>กำลังโหลด...</value>
+  </data>
+  <data name="WeatherCardTitle" xml:space="preserve">
+    <value>📍 ข้อมูลสภาพอากาศ</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>เมือง</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>อุณหภูมิ</value>
+  </data>
+  <data name="Weather" xml:space="preserve">
+    <value>สภาพอากาศ</value>
+  </data>
+  <data name="Humidity" xml:space="preserve">
+    <value>ความชื้น</value>
+  </data>
+  <data name="WindSpeed" xml:space="preserve">
+    <value>ความเร็วลม</value>
+  </data>
+  <data name="Cloudiness" xml:space="preserve">
+    <value>ความครึ้มของเมฆ</value>
+  </data>
+  <data name="ValidationError" xml:space="preserve">
+    <value>กรุณาแก้ไขข้อผิดพลาดต่อไปนี้</value>
+  </data>
+	<data name="weather_clear_sky">
+		<value>ท้องฟ้าแจ่มใส</value>
+	</data>
+	<data name="weather_few_clouds">
+		<value>เมฆเล็กน้อย</value>
+	</data>
+	<data name="weather_scattered_clouds">
+		<value>เมฆกระจัดกระจาย</value>
+	</data>
+	<data name="weather_broken_clouds">
+		<value>เมฆแตกกระจาย</value>
+	</data>
+	<data name="weather_shower_rain">
+		<value>ฝนตกปรอยๆ</value>
+	</data>
+	<data name="weather_rain">
+		<value>ฝนตก</value>
+	</data>
+	<data name="weather_thunderstorm">
+		<value>พายุฝนฟ้าคะนอง</value>
+	</data>
+	<data name="weather_snow">
+		<value>หิมะตก</value>
+	</data>
+	<data name="weather_mist">
+		<value>หมอก</value>
+	</data>
+	<data name="weather_overcast_clouds">
+		<value>เมฆครึ้ม</value>
+	</data>
+	<data name="weather_light_rain">
+		<value>ฝนตกเล็กน้อย</value>
+	</data>
+	<data name="weather_moderate_rain">
+		<value>ฝนปานกลาง</value>
+	</data>
+</root>

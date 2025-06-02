@@ -1,0 +1,85 @@
+﻿@using TMP_mvc.Models
+@model TempResultViewModel
+
+@{
+    ViewBag.Title = "Check Weather";
+}
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">@Localizer["PageTitle"]</h2>
+            <hr class="mx-auto" style="width: 300px; height: 3px;" />
+        </div>
+        <div class="col-md-6">
+
+            <div class="card shadow p-4">
+                <h2 class="text-center mb-4">@Localizer["FormTitle"]</h2>
+
+                <!-- ฟอร์มกรอกอุณหภูมิ -->
+                <form method="post">
+                    <div class="form-group mb-3">
+                        <label for="tempInput" class="form-label">@Localizer["InputLabel"]</label>
+                        <input type="text" name="tempRaw" id="tempInput" class="form-control" required />
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="unitSelect">@Localizer["SelectUnitLabel"]</label>
+                        <select name="unit" id="unitSelect" class="form-select">
+                            <option value="C">°C - Celsius</option>
+                            <option value="F">°F - Fahrenheit</option>
+                            <option value="K">K - Kelvin</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">@Localizer["ButtonCheck"]</button>
+                </form>
+                @functions {
+                    public string GetBadgeClass(string description)
+                    {
+                        if (description.Contains("Very Hot")) return "bg-danger text-white";
+                        if (description.Contains("Hot")) return "bg-warning text-dark";
+                        if (description.Contains("Warm")) return "bg-success text-white";
+                        if (description.Contains("Fresh")) return "bg-primary text-white";
+                        if (description.Contains("Cold")) return "bg-info text-dark";
+                        if (description.Contains("Very cold")) return "bg-dark text-white";
+                        return "bg-secondary text-white";
+                    }
+                }
+
+                <!-- Error จาก ModelState -->
+                @if (!ViewData.ModelState.IsValid && Context.Request.Method == "POST")
+                {
+                    @Html.ValidationSummary(false, "", new { @class = "alert alert-danger mt-3" })
+                }
+                <!-- ผลลัพธ์ -->
+                @if (Model?.Results != null && Model.Results.Any())
+                {
+                    <hr class="my-4" />
+                    <h4 class="text-center">@Localizer["ResultTitle"]</h4>
+                    <div class="row row-cols-1 row-cols-md-2 g-4 mt-3 justify-content-center">
+                        @foreach (var weather in Model.Results)
+                        {
+                            <div class="col">
+                                <div class="card text-center shadow-sm h-100">
+                                    <div class="card-body">
+                                        <div class="mb-2" style="font-size: 3rem;">@weather.Icon</div>
+                                        <h5 class="card-title">
+                                            @weather.Temperature °@Context.Request.Form["unit"]
+                                        </h5>
+                                        <span class="badge @GetBadgeClass(weather.Description) p-3 h3">
+                                           @Localizer[weather.Description] 
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

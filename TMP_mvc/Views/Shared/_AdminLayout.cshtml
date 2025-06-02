@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Admin.css" asp-append-version="true" />
+    @RenderSection("Styles", required: false)
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 100vh;
+            background-color: #343a40;
+            color: white;
+            padding: 1rem;
+            z-index: 1000;
+        }
+
+            .sidebar h5 {
+                color: #f8f9fa;
+                margin-bottom: 1rem;
+            }
+
+            .sidebar a {
+                color: #ccc;
+                text-decoration: none;
+                display: block;
+                padding: 8px;
+                border-radius: 4px;
+                transition: all 0.2s;
+            }
+
+                .sidebar a:hover {
+                    background-color: #495057;
+                    color: #fff;
+                }
+
+        .main-content {
+            margin-left: 220px; /* <-- เว้นที่ให้ sidebar */
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .topbar {
+            background-color: #212529;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container-body {
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h5>👑 Admin Menu</h5>
+        <hr />
+        <a asp-controller="Admin" asp-action="Index">Manage Users</a>
+        <a asp-controller="Admin" asp-action="ChartUser">Chart</a>
+        <a asp-controller="Admin" asp-action="UserTimeline">Timeline</a>
+        <a asp-controller="Admin" asp-action="AdminIndex">Comments</a>
+        <hr />
+        <a asp-controller="Account" asp-action="Login">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="topbar">
+            <span class="fw-bold">@ViewData["Title"]</span>
+            <span>Welcome, @User.Identity?.Name</span>
+        </div>
+
+        <div class="container-body">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

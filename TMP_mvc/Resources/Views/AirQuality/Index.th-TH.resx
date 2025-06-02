@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+	<data name="PM25">
+		<value>PM 2.5</value>
+	</data>
+	<data name="PM10">
+		<value>PM 10</value>
+	</data>
+	<data name="AQI">
+		<value>AQI</value>
+	</data>
+	<data name="CO">
+		<value>คาร์บอนมอนอกไซด์ (CO)</value>
+	</data>
+	<data name="NO2">
+		<value>ไนโตรเจนไดออกไซด์ (NO₂)</value>
+	</data>
+	<data name="O3">
+		<value>โอโซน (O₃)</value>
+	</data>
+	<data name="City">
+		<value>เมือง</value>
+	</data>
+	<data name="Search">
+		<value>ค้นหา</value>
+	</data>
+	<data name="NoData">
+		<value>ไม่มีข้อมูล</value>
+	</data>
+	<data name="NoInfoFound">
+		<value>ไม่พบข้อมูลสำหรับเมืองนี้</value>
+	</data>
+	<data name="ErrorOccurred">
+		<value>เกิดข้อผิดพลาด</value>
+	</data>
+	<data name="Placeholder-example">
+		<value>ตัวอย่างเมืองเช่น เชียงใหม่</value>
+	</data>
+</root>

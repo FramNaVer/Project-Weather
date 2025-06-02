@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle">
+    <value>เลือกตำแหน่งบนแผนที่</value>
+  </data>
+  <data name="ForecastHeader">
+    <value>พยากรณ์อากาศ</value>
+  </data>
+  <data name="CurrentWeatherCardTitle">
+    <value>ตำแหน่งที่เลือก</value>
+  </data>
+  <data name="CurrentWeatherCity">
+    <value>เมือง</value>
+  </data>
+  <data name="CurrentWeatherTemperature">
+    <value>อุณหภูมิ</value>
+  </data>
+  <data name="CurrentWeatherDescription">
+    <value>สภาพอากาศ</value>
+  </data>
+	<data name="ErrorLoading" xml:space="preserve">
+    <value>เกิดข้อผิดพลาด</value>
+  </data>
+	<data name="weather_clear sky">
+		<value>ท้องฟ้าแจ่มใส</value>
+	</data>
+	<data name="weather_rain">
+		<value>ฝนตก</value>
+	</data>
+	<data name="weather_overcast clouds">
+		<value>เมฆมาก</value>
+	</data>
+	<data name="weather_broken clouds">
+		<value>เมฆเป็นส่วนๆ</value>
+	</data>
+	<data name="weather_light rain">
+		<value>ฝนตกเล็กน้อย</value>
+	</data>
+	<data name="weather_moderate rain">
+		<value>ฝนตกปานกลาง</value>
+	</data>
+	<data name="weather_very heavy rain">
+		<value>ฝนตกหนักมาก</value>
+	</data>
+	<data name="weather_scattered_clouds">
+		<value>เมฆกระจัดกระจาย</value>
+	</data>
+</root>

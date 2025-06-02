@@ -1,0 +1,29 @@
+﻿@model TMP_mvc.ViewModels.CommentViewModel
+@{
+    ViewData["Title"] = "แสดงความคิดเห็น";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title mb-4">📝 แสดงความคิดเห็น</h4>
+
+            <form asp-action="Create" method="post">
+                <div class="mb-3">
+                    <label for="message" class="form-label">ข้อความของคุณ</label>
+                    <textarea class="form-control" name="Message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-paper-plane"></i> ส่งความคิดเห็น
+                </button>
+            </form>
+
+            @if (ViewBag.SuccessMessage != null)
+            {
+                <div class="alert alert-success mt-3">
+                    @ViewBag.SuccessMessage
+                </div>
+            }
+        </div>
+    </div>
+</div>

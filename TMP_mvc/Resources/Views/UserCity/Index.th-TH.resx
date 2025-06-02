@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+	<data name="Title" xml:space="preserve">
+    <value>เมืองที่คุณสนใจ</value>
+  </data>
+	<data name="Header" xml:space="preserve">
+    <value>🌆 เมืองที่คุณสนใจ</value>
+  </data>
+	<data name="InputPlaceholder" xml:space="preserve">
+    <value>เช่น Bangkok</value>
+  </data>
+	<data name="AddButton" xml:space="preserve">
+    <value>เพิ่มเมือง</value>
+  </data>
+	<data name="EmptyMessage" xml:space="preserve">
+    <value>คุณยังไม่ได้ติดตามเมืองใดเลย</value>
+  </data>
+	<data name="TableHeaderCity" xml:space="preserve">
+    <value>เมือง</value>
+  </data>
+	<data name="TableHeaderManage" xml:space="preserve">
+    <value>จัดการ</value>
+  </data>
+	<data name="UnfollowButton" xml:space="preserve">
+    <value>เลิกติดตาม</value>
+  </data>
+
+	<data name="TableCity" xml:space="preserve">
+    <value>เมือง</value>
+  </data>
+</root>

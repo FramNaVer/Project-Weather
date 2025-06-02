@@ -1,0 +1,88 @@
+﻿@model List<TMP_mvc.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    var userRoles = ViewBag.UserRoles as Dictionary<string, string>;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">👑 Manage Users</h2>
+
+    <!-- แสดงสถิติ -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card border-primary shadow-sm">
+                <div class="card-body text-primary">
+                    <h5 class="card-title">👥 Users</h5>
+                    <p class="card-text fs-4 fw-bold">@ViewBag.TotalUsers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-success shadow-sm">
+                <div class="card-body text-success">
+                    <h5 class="card-title">👑 Admin</h5>
+                    <p class="card-text fs-4 fw-bold">@ViewBag.TotalAdmins</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ข้อความระบบ -->
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success">@TempData["Message"]</div>
+    }
+
+    <!-- ตารางผู้ใช้ -->
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Manage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                var role = userRoles.ContainsKey(user.Id) ? userRoles[user.Id] : "User";
+                bool isSelf = User.Identity.Name == user.Email;
+                bool isAdmin = role == "Admin";
+
+                <tr>
+                    <td>@user.Email</td>
+                    <td>@user.UserName</td>
+                    <td>
+                        <span class="badge @(isAdmin ? "bg-success" : "bg-secondary")">@role</span>
+                    </td>
+                    <td>
+                        @if (!isSelf && !isAdmin)
+                        {
+                            <form asp-action="AssignAdmin" method="post" class="d-inline">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-primary">
+                                    Grant Admin
+                                </button>
+                            </form>
+                        }
+                        else if (!isSelf && isAdmin)
+                        {
+                            <form asp-action="RemoveAdmin" method="post" class="d-inline">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                   Delete Admin
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-muted">-</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Temperature" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="LeafletMap" xml:space="preserve">
+    <value>Leaflet Map</value>
+  </data>
+  <data name="CombindWeather" xml:space="preserve">
+    <value>Combind Weather</value>
+  </data>
+  <data name="ForecastWeather" xml:space="preserve">
+    <value>Forecast Weather</value>
+  </data>
+  <data name="Interest" xml:space="preserve">
+    <value>Interest</value>
+  </data>
+  <data name="InterestCity" xml:space="preserve">
+    <value>Interest City</value>
+  </data>
+  <data name="Stats" xml:space="preserve">
+    <value>Stats</value>
+  </data>
+  <data name="SearchTemperature" xml:space="preserve">
+    <value>Search Temperature</value>
+  </data>
+  <data name="CheckTemperature" xml:space="preserve">
+    <value>Check Temperature</value>
+  </data>
+  <data name="WeatherCityAPI" xml:space="preserve">
+    <value>WeatherCity API</value>
+  </data>
+  <data name="AirQuality" xml:space="preserve">
+    <value>Air Quality</value>
+  </data>
+</root>
