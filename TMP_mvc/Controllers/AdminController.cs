@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using TMP_mvc.Data;
+using TMP_mvc.Hubs;
 using TMP_mvc.Models;
 
 namespace TMP_mvc.Controllers
@@ -13,12 +15,26 @@ namespace TMP_mvc.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ApplicationDbContext _context;
+        private readonly IHubContext<NotificationHub> _hub;
 
-        public AdminController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ApplicationDbContext context)
+        public AdminController(UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            ApplicationDbContext context,
+            IHubContext<NotificationHub> hub)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _context = context;
+            _hub = hub;
+        }
+        [HttpGet]
+        public async Task<IActionResult> SimulateRain(string userId, string cityName)
+        {
+            await _hub.Clients.User(userId).SendAsync(
+                "ReceiveRainAlert",
+                $"🌧️ [Simulate] ฝนกำลังจะตกที่ {cityName}");
+
+            return Ok("ส่งข้อความแจ้งเตือนแล้ว");
         }
 
         public async Task<IActionResult> Index()

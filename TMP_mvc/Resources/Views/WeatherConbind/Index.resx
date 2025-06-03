@@ -69,7 +69,7 @@
 	<data name="weather_very heavy rain">
 		<value>Very heavy rain</value>
 	</data>
-	<data name="weather_scattered_clouds">
+	<data name="weather_scattered clouds">
 		<value>Scattered clouds</value>
 	</data>
 </root>
