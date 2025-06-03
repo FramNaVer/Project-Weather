@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using TMP_mvc.Data;
 using TMP_mvc.Hubs;
+using TMP_mvc.Models;
 
 namespace TMP_mvc.Services
 {
@@ -46,14 +47,33 @@ namespace TMP_mvc.Services
                                     _ => $"🌧️ มีฝนตกที่ {city.NameTh ?? city.Name}"
                                 };
 
-                                await _hub.Clients.User(user.Id).SendAsync("ReceiveRainAlert", alertMessage);
-                                break; // แจ้งเตือนแค่รอบเดียวพอ
+                                var now = DateTime.Now.TimeOfDay;
+                                var start = new TimeSpan(6, 0, 0);
+                                var end = new TimeSpan(22, 0, 0);
+
+
+                                if (now >= start && now <= end)
+                                {
+                                    await _hub.Clients.User(user.Id).SendAsync("ReceiveRainAlert", alertMessage);
+
+                                    db.NotificationLogs.Add(new NotificationLog
+                                    {
+                                        UserId = user.Id,
+                                        CityName = city.NameTh ?? city.Name,
+                                        Description = alertMessage,
+                                        SentAt = DateTime.UtcNow
+                                    });
+
+                                    await db.SaveChangesAsync();
+                                }
+
+                                break;
                             }
                         }
                     }
                 }
 
-                await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(2), stoppingToken);
             }
         }
 
