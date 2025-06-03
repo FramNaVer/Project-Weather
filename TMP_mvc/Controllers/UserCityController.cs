@@ -42,7 +42,9 @@ namespace TMP_mvc.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var city = await _context.Cities
-                .FirstOrDefaultAsync(c => c.Name.ToLower() == cityName.ToLower());
+                .FirstOrDefaultAsync(c =>
+                c.Name.ToLower() == cityName.ToLower() ||
+                c.NameTh.ToLower() == cityName.ToLower());
 
             if (city == null)
             {
@@ -61,18 +63,24 @@ namespace TMP_mvc.Controllers
 
             return RedirectToAction("Index");
         }
+
         [HttpGet]
         public async Task<IActionResult> SearchCities(string term)
         {
-            var results = await _context.Cities
-                .Where(c => c.Name.Contains(term))
-                .OrderBy(c => c.Name)
-                .Select(c => new { label = c.Name, value = c.Name })
-                .Take(10)
+            var cities = await _context.Cities
+                .Where(c =>
+                    c.Name.ToLower().Contains(term.ToLower()) ||
+                    c.NameTh.ToLower().Contains(term.ToLower()))
+                .Select(c => new
+                {
+                    label = c.NameTh ?? c.Name, // ใช้ภาษาไทยถ้ามี
+                    value = c.NameTh ?? c.Name  // ส่งค่าที่จะไปแสดงใน input
+                })
                 .ToListAsync();
 
-            return Json(results);
+            return Json(cities);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Unfollow(int cityId)
