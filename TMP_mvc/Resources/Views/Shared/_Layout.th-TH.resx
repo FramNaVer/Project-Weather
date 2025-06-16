@@ -54,4 +54,7 @@
   <data name="AirQuality" xml:space="preserve">
     <value>คุณภาพอากาศ</value>
   </data>
+	<data name="History" xml:space="preserve">
+    <value>ประวัติการเเจ้งเตือน</value>
+  </data>
 </root>

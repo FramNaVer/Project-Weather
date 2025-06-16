@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_TMP_mvc", "Test_TMP_mvc\Test_TMP_mvc.csproj", "{99B7CBFE-8B39-44E2-85FD-0FBCFA8E9262}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{DB972E50-EEED-40AA-9888-B22BEBD3593E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB972E50-EEED-40AA-9888-B22BEBD3593E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB972E50-EEED-40AA-9888-B22BEBD3593E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99B7CBFE-8B39-44E2-85FD-0FBCFA8E9262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99B7CBFE-8B39-44E2-85FD-0FBCFA8E9262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99B7CBFE-8B39-44E2-85FD-0FBCFA8E9262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99B7CBFE-8B39-44E2-85FD-0FBCFA8E9262}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

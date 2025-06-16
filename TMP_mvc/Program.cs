@@ -90,6 +90,8 @@ builder.Services.AddHttpClient<IWeatherApiService, WeatherApiService>();
 builder.Services.AddScoped<ITemperatureService, TemperatureService>();
 builder.Services.AddScoped<IForecastWeatherServices, WeatherForecastService>();
 builder.Services.AddScoped<IAirQualityService, AirQualityService>();
+builder.Services.AddHostedService<WeatherMonitorService>();
+
 
 //SignalR
 builder.Services.AddSignalR();
@@ -103,7 +105,7 @@ app.UseRouting();
 app.UseCookiePolicy();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapHub<NotificationHub>("/notifyHub");
+app.MapHub<NotificationHub>("/weatherHub");
 
 
 

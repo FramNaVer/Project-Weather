@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TMP_mvc.Data;
 
@@ -11,9 +12,11 @@ using TMP_mvc.Data;
 namespace TMP_mvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250602091849_AddNameCitiesTH")]
+    partial class AddNameCitiesTH
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,36 +272,6 @@ namespace TMP_mvc.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("TMP_mvc.Models.NotificationLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CityName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("SentAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("NotificationLogs");
-                });
-
             modelBuilder.Entity("TMP_mvc.Models.TemperatureHistory", b =>
                 {
                     b.Property<int>("Id")
@@ -415,17 +388,6 @@ namespace TMP_mvc.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TMP_mvc.Models.NotificationLog", b =>
-                {
-                    b.HasOne("TMP_mvc.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("TMP_mvc.Models.TemperatureHistory", b =>
                 {
                     b.HasOne("TMP_mvc.Models.City", "City")
@@ -454,7 +416,7 @@ namespace TMP_mvc.Migrations
                         .IsRequired();
 
                     b.HasOne("TMP_mvc.Models.ApplicationUser", "User")
-                        .WithMany("UserCities")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -462,11 +424,6 @@ namespace TMP_mvc.Migrations
                     b.Navigation("City");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TMP_mvc.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("UserCities");
                 });
 #pragma warning restore 612, 618
         }

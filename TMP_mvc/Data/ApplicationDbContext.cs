@@ -13,6 +13,7 @@ namespace TMP_mvc.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<UserCity> UserCities { get; set; }
         public DbSet<TemperatureHistory> TemperatureHistories { get; set; }
+        public DbSet<NotificationLog> NotificationLogs { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
 

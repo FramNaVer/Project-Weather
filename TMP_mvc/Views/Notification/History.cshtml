@@ -1,0 +1,28 @@
+﻿@model List<TMP_mvc.Models.NotificationLog>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info">ไม่มีประวัติการแจ้งเตือน</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>วันที่</th>
+                <th>เมือง</th>
+                <th>รายละเอียด</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model)
+            {
+                <tr>
+                    <td>@log.SentAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@log.CityName</td>
+                    <td>@log.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
